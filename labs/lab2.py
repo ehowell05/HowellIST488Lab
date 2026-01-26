@@ -6,7 +6,8 @@ st.title("Lab 2")
 st.write(
     "Upload a document below and ask a question about it – GPT will answer! "
 )
-
+st.sidebar.title("Lab 2 Settings")
+add_model_sbox = st.sidebar.selectbox("Which kind of summary would you like to use?", ["in 100 Words", "in 2 Paragraphs", "in 5 Bullet Points"])
 # Ask user for their OpenAI API key via `st.text_input`.
 # Alternatively, you can store the API key in `./.streamlit/secrets.toml` and access it
 # via `st.secrets`, see https://docs.streamlit.io/develop/concepts/connections/secrets-management
