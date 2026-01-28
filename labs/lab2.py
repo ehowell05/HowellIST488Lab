@@ -13,11 +13,6 @@ add_model_checkbox = st.sidebar.checkbox("Would you like to use the stonger mode
 
 
 
-def model_check(add_model_checkbox):
-    if add_model_checkbox:
-        model_check = "gpt-5-mini"
-    else:
-        model_check = "gpt-5-nano"
 # Ask user for their OpenAI API key via `st.text_input`.
 # Alternatively, you can store the API key in `./.streamlit/secrets.toml` and access it
 # via `st.secrets`, see https://docs.streamlit.io/develop/concepts/connections/secrets-management
@@ -44,8 +39,13 @@ if uploaded_file:
     else:
         document = uploaded_file.read().decode("utf-8")
 
+    if add_model_checkbox:
+        model_check = "gpt-5-mini"
+    else:
+        model_check = "gpt-5-nano"
+
     response = client.responses.create(
-        model=model_check(add_model_checkbox),
+        model=model_check,
         input=f"Here is a document:\n{document}\n\nQuestion: {add_sum_sbox}",
         stream=True,
     )
