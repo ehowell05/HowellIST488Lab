@@ -32,26 +32,26 @@ except Exception as e:
 
 # Let the user upload a file via `st.file_uploader`.
 uploaded_file = st.file_uploader(
-    "Upload a document (.txt or .md)", type=("txt", "md")
+    "Upload a document (.txt or .pdf])", type=("txt", "pdf")
 )
 
-if uploaded_file and question:
+if uploaded_file:
 
-    # Process the uploaded file and question.
-    document = uploaded_file.read().decode()
-    messages = [
-        {
-            "role": "user",
-            "content": f"Here's a document: {document} \n\n---\n\n {add_sum_sbox}",
-        }
-    ]
+    if uploaded_file.type == "application/pdf":
+        reader = PdfReader(uploaded_file)
+        document = "\n".join(page.extract_text() or "" for page in reader.pages)
+    else:
+        document = uploaded_file.read().decode("utf-8")
 
-    # Generate an answer using the OpenAI API.
-    stream = client.chat.completions.create(
+    response = client.responses.create(
         model=model_check(add_model_checkbox),
-        messages=messages,
+        input=f"Here is a document:\n{document}\n\nQuestion: {add_sum_sbox}",
         stream=True,
     )
 
-    # Stream the response to the app using `st.write_stream`.
-    st.write_stream(stream)
+    def stream_text():
+        for event in response:
+            if event.type == "response.output_text.delta":
+                yield event.delta
+
+    st.write_stream(stream_text())
