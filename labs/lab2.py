@@ -1,5 +1,6 @@
 import streamlit as st
 from openai import OpenAI
+from pypdf import PdfReader
 
 # Show title and description.
 st.title("Lab 2")
