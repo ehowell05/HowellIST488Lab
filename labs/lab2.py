@@ -8,7 +8,7 @@ st.write(
 )
 st.sidebar.title("Lab 2 Settings")
 add_sum_sbox = st.sidebar.selectbox("Which kind of summary would you like to use?", ["in 100 Words", "in 2 Paragraphs", "in 5 Bullet Points"])
-add_model_checkbox = st.checkbox("Would you like to use the stonger model?", value = False)
+add_model_checkbox = st.sidebar.checkbox("Would you like to use the stonger model?", value = False)
 
 
 
