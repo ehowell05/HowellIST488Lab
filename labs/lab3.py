@@ -1,10 +1,12 @@
 import streamlit as st
 from openai import OpenAI
 
+st.title("Lab 3: Chat with an AI")
+
 if 'messages' not in st.session_state:
     st.session_state['messages'] = []
 
-system_prompt = {"role": "system", "content": "You are a helpful assistant. Explain answers so a 10-year-old can understand."}
+system_prompt = {"role": "system", "content": "You are an assistant. Explain answers so someone with no prior knowledge can understand."}
 client = OpenAI(api_key=st.secrets.EddieOpenAPIKey)
 
 user_input = st.text_input("Ask me anything:")
@@ -12,7 +14,7 @@ user_input = st.text_input("Ask me anything:")
 if user_input:
     st.session_state['messages'].append({"role": "user", "content": user_input})
 
-    buffer_messages = [system_prompt] + st.session_state['messages'][-4:]
+    buffer_messages = [system_prompt] + st.session_state['messages'][-4:] #-4 wuld include the 2 previous messeges and their resposnes
 
     response = client.chat.completions.create(
         model="gpt-5",
