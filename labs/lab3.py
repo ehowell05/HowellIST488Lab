@@ -5,7 +5,7 @@ if 'messages' not in st.session_state:
     st.session_state['messages'] = []
 
 system_prompt = {"role": "system", "content": "You are a helpful assistant. Explain answers so a 10-year-old can understand."}
-client = OpenAI(api_key=st.secrets["openai_api_key"])
+client = OpenAI(api_key=st.secrets.EddieOpenAPIKey)
 
 user_input = st.text_input("Ask me anything:")
 
