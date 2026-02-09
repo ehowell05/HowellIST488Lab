@@ -3,5 +3,4 @@ openai
 pypdf
 PyPDF2
 chromadb
-pysqulite3-binary
 protobuf == 3.20
