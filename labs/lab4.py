@@ -56,8 +56,8 @@ if "Lab4_VectorDB" not in st.session_state:
 
 collection = st.session_state.Lab4_VectorDB
 
-
-#testing
+'''
+#Part A Testing
 st.sidebar.header("Test Vector Search")
 topic = st.sidebar.text_input("Enter a search term", placeholder="e.g., Generative AI")
 
@@ -80,6 +80,54 @@ if topic:
 
     for i in range(len(results["ids"][0])):
         st.write(f"{i+1}. {results['ids'][0][i]}")
+
+else:
+    st.info("Enter a search term in the sidebar to test the Vector Database.")
+'''
+
+#Part B
+st.sidebar.header("Test Vector Search")
+topic = st.sidebar.text_input("Enter a question", placeholder="e.g., What is the grading rubric for IST 256?")
+
+if topic:
+    client = st.session_state.openai_client
+
+    response = client.embeddings.create(
+        input=[topic],
+        model="text-embedding-3-small"
+    )
+
+    query_embedding = response.data[0].embedding
+
+    results = collection.query(
+        query_embeddings=[query_embedding],
+        n_results=3
+    )
+
+    retrieved_docs = results["documents"][0]
+    retrieved_ids = results["ids"][0]
+
+    context = ""
+    for i in range(len(retrieved_docs)):
+        context = context + "\n\nSource: " + retrieved_ids[i] + "\n" + retrieved_docs[i] #ChatGPT helped me with this part, I had trouble formatting the retrieved documents to contain the most context.
+
+    prompt = f'''You are an course assistant chatbot. 
+    Use the following documentation as your base knowledge for your answers. 
+    If your answer is based of a specific document, please cite the source in your answer in a clear manner for example "IST 256 - Grading Rubric".
+    If the documents do not contain any relevant information, please say "I don't know".
+    Documentation:
+    {context}
+
+    Question: {topic}
+    '''
+
+    response = client.chat.completions.create(
+    model="gpt-5-mini",
+    messages=[{"role": "user", "content": prompt}]
+)
+
+    st.write(response.choices[0].message.content)
+
 
 else:
     st.info("Enter a search term in the sidebar to test the Vector Database.")
