@@ -56,7 +56,7 @@ if "Lab4_VectorDB" not in st.session_state:
 
 collection = st.session_state.Lab4_VectorDB
 
-'''
+part_1 = '''
 #Part A Testing
 st.sidebar.header("Test Vector Search")
 topic = st.sidebar.text_input("Enter a search term", placeholder="e.g., Generative AI")
