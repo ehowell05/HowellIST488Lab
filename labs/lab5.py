@@ -56,7 +56,6 @@ if st.sidebar.button('Get Outfit'):
     Current weather:
     Temperature: {weather['temperature']}°F
     Feels like: {weather['feels_like']}°F
-    Condition: {weather['weather'][0]['description']}
 
     Suggested outfit:
     '''
