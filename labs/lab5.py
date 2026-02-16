@@ -1,5 +1,6 @@
 import requests
 import streamlit as st
+from openai import OpenAI
 
 st.title('Lab 5: OpenWeather API')
 
@@ -35,9 +36,38 @@ def get_current_weather(location, units='imperial'):
 st.sidebar.header('Enter Location')
 location = st.sidebar.text_input('Location', 'Ex. Syracuse, NY, US')
 units = st.sidebar.selectbox('Units', ['imperial', 'metric'])
-if st.sidebar.button('Get Weather'):
-    try:
-        weather = get_current_weather(location, units=units)
-        st.write(weather)
-    except Exception as e:
-        st.error(e)
+#if st.sidebar.button('Get Weather'):
+#    try:
+#        weather = get_current_weather(location, units=units)
+#        st.write(weather)
+#    except Exception as e:
+#        st.error(e)
+
+openai_api_key = st.secrets.EddieOpenAPIKey
+
+if st.sidebar.button('Get Outfit'):
+    client = OpenAI(api_key=openai_api_key)
+
+    weather = get_current_weather(location, units=units)
+
+    prompt = f'''You are an outfit recommendation chatbot. 
+    Based on the weather in {location}, suggest an appropriate outfit.
+
+    Current weather:
+    Temperature: {weather['temperature']}°F
+    Feels like: {weather['feels_like']}°F
+    Condition: {weather['weather'][0]['description']}
+
+    Suggested outfit:
+    '''
+
+    response = client.chat.completions.create(
+    model="gpt-5-mini",
+    messages=[{"role": "user", "content": prompt}]
+)
+
+    st.write(response.choices[0].message.content)
+
+
+else:
+    st.info("Enter a location in the sidebar to get started.")
