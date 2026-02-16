@@ -33,7 +33,7 @@ def get_current_weather(location, units='imperial'):
     }
 
 st.sidebar.header('Enter Location')
-location = st.sidebar.text_input('Location', 'Syracuse, NY, US')
+location = st.sidebar.text_input('Location', 'Ex. Syracuse, NY, US')
 units = st.sidebar.selectbox('Units', ['imperial', 'metric'])
 if st.sidebar.button('Get Weather'):
     try:
