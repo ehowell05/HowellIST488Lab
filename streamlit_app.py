@@ -19,8 +19,13 @@ Lab4 = st.Page('labs/lab4.py',
     title = "Lab 4",
     icon = "🔬",
     url_path = None,
+    default = False)
+Lab5 = st.Page('labs/lab5.py',
+    title = "Lab 5",
+    icon = "🧬",
+    url_path = None,
     default = True)
 
-pg = st.navigation ([Lab4,Lab3, Lab2, Lab1])
+pg = st.navigation ([Lab5,Lab4,Lab3, Lab2, Lab1])
 st.set_page_config(page_title='Lab Manager')
 pg. run ()
