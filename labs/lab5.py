@@ -35,7 +35,7 @@ def get_current_weather(location, units='imperial'):
 
 st.sidebar.header('Enter Location')
 location = st.sidebar.text_input('Location', 'Ex. Syracuse, NY, US')
-units = st.sidebar.selectbox('Units', ['imperial', 'metric'])
+#units = st.sidebar.selectbox('Units', ['imperial', 'metric'])
 #if st.sidebar.button('Get Weather'):
 #    try:
 #        weather = get_current_weather(location, units=units)
@@ -48,9 +48,14 @@ openai_api_key = st.secrets.EddieOpenAPIKey
 if st.sidebar.button('Get Outfit'):
     client = OpenAI(api_key=openai_api_key)
 
-    weather = get_current_weather(location, units=units)
+    weather = get_current_weather(location, units='imperial')
 
-    prompt = f'''You are an outfit recommendation chatbot. 
+    prompt = f'''You are an outfit recommendation chatbot. Assume that this outfit is for a 6'4 man and give an output in this way.
+    Hat: 
+    Shirt:
+    Pants:
+    Jacket? Yes/No
+    Shoes: 
     Based on the weather in {location}, suggest an appropriate outfit.
 
     Current weather:
