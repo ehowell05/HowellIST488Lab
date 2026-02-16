@@ -51,11 +51,11 @@ if st.sidebar.button('Get Outfit'):
     weather = get_current_weather(location, units='imperial')
 
     prompt = f'''You are an outfit recommendation chatbot. Assume that this outfit is for a 6'4 man and give an output in this way only and do not add any more or any less.
-    Hat? Yes/No 
-    Shirt:
-    Pants:
-    Jacket? Yes/No
-    Shoes: 
+    Hat? Yes/No \n
+    Shirt: \n
+    Pants: \n
+    Jacket? Yes/No \n
+    Shoes: \n
     Based on the weather in {location}, suggest an appropriate outfit.
 
     Current weather:
