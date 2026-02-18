@@ -45,7 +45,7 @@ location = st.sidebar.text_input('Location', 'Ex. Syracuse, NY, US')
 
 openai_api_key = st.secrets.EddieOpenAPIKey
 
-if st.sidebar.button('Get Outfit'):
+if location:
     client = OpenAI(api_key=openai_api_key)
 
     weather = get_current_weather(location, units='imperial')
