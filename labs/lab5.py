@@ -56,7 +56,6 @@ if location:
     Pants: \n \n
     Jacket? Yes/No \n \n
     Shoes: \n \n
-    Based on the weather in {location}, suggest an appropriate outfit.
 
     Current weather:
     Temperature: {weather['temperature']}°F
